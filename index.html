@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Spanish Learning Journey | Live xAPI Learning Analytics Dashboard</title><meta name="description" content="Live Spanish learning analytics powered by xAPI and Veracity LRS: study effort, skill assessments, and Anki progress."><style>
+:root{font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#18233d;background:#f5f6fb}*{box-sizing:border-box}body{margin:0}main{max-width:1160px;margin:auto;padding:34px 22px 65px}h1{font-size:30px;letter-spacing:-.7px;margin:3px 0 6px}h2{font-size:19px;margin:0 0 6px;letter-spacing:-.3px}h3{font-size:14px;margin:0 0 9px}p{line-height:1.5}.muted{color:#758097}.small{font-size:12px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}.eyebrow{font-size:11px;font-weight:850;letter-spacing:1.4px;color:#6554ec}.pill{background:#ece9ff;color:#5945d8;padding:9px 14px;border-radius:25px;font-size:12px;font-weight:700}.panel{background:#fff;border:1px solid #e7eaf2;border-radius:17px;padding:23px;margin:14px 0;box-shadow:0 5px 18px #16203908}.settings{background:#fff}.settings-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;background:transparent;color:#18233d;padding:0;text-align:left;font-size:15px}.settings-toggle .chevron{font-size:15px;color:#6554ec}.settings-body{margin-top:18px}.settings.collapsed{padding:15px 22px}.settings.collapsed .settings-body{display:none}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:650}input{width:100%;border:1px solid #d7ddea;border-radius:9px;padding:12px;font:inherit;color:#18233d;background:#fff}button{border:0;background:#6655e9;color:white;border-radius:9px;padding:12px 20px;font-weight:700;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.btnlight{background:#efedff;color:#5744cf}.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}.status{font-size:13px}.error{color:#b03232}.ok{color:#008f81}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin:15px 0}.metric{background:#fff;border:1px solid #e7eaf2;border-radius:15px;padding:19px;min-height:118px;box-shadow:0 5px 18px #16203908}.metric strong{display:block;font-size:29px;margin:10px 0 5px;letter-spacing:-.7px}.metric span{font-size:12px;color:#788298}.metric .meta{font-size:11px}.twocol{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}.twocol.equal{grid-template-columns:1fr 1fr}.chartrow{display:flex;align-items:center;gap:10px;margin:13px 0;font-size:13px}.chartrow .label{width:160px;flex-shrink:0;overflow-wrap:anywhere}.track{height:9px;background:#eceef5;border-radius:20px;flex:1;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#6755ee,#9384ff);border-radius:20px}.value{width:65px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700}.capgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.cap{background:#fff;border:1px solid #e8eaf2;border-radius:12px;padding:15px}.cap .score{font-size:24px;font-weight:800;margin:6px 0}.cap .track{margin:10px 0}.cap .fill{background:#08a797}.empty{background:#f9faff;border:1px dashed #dce0ee;border-radius:11px;padding:18px;color:#758097;font-size:13px}.footer{font-size:12px;color:#7a8499;margin-top:22px;text-align:center}.section-note{font-size:12px;color:#7a8499;margin:0 0 18px}.month-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:9px}.month-cell{border:1px solid #e7eaf2;border-radius:11px;padding:13px}.month-cell strong{display:block;font-size:22px}.month-cell span{font-size:11px;color:#788298}.month-bars{display:flex;align-items:end;gap:10px;height:185px;padding:14px 6px 0;border-bottom:1px solid #e9ebf2;overflow-x:auto}.month-group{display:flex;flex:1;min-width:45px;align-items:center;justify-content:end;flex-direction:column;gap:5px;height:100%}.month-bar{width:30px;max-width:85%;border-radius:7px 7px 0 0;background:linear-gradient(#6655e9,#9385ff);min-height:3px}.month-label{font-size:11px;color:#7a8499;text-align:center;padding-top:9px}.month-value{font-size:11px;font-weight:750}.trend-legend{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0;font-size:11px;color:#69768c}.legend-dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px}.trend-svg{width:100%;height:auto;display:block;overflow:visible}.trend-wrap{padding:12px 4px}.note{padding:12px 14px;background:#f4f2ff;border-left:3px solid #6b5bf0;border-radius:7px;font-size:12px;line-height:1.5;margin-top:15px}.assess-table{width:100%;border-collapse:collapse;font-size:12px}.assess-table td,.assess-table th{padding:10px;text-align:left;border-bottom:1px solid #e7edf3}.assess-table th{color:#62768b;font-weight:650}.scroll{overflow:auto}.main-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}.main-grid>.panel{margin:0}.wide{grid-column:1/-1}.bottom-grid{display:grid;grid-template-columns:1fr;gap:14px}.bottom-grid>.panel{margin:0}.mini{font-size:11px;color:#7b859b}.table-details{margin-top:12px}.table-details summary{font-size:12px;color:#6655e9;cursor:pointer;font-weight:700}.section-head{margin-bottom:16px}@media(max-width:850px){.cards{grid-template-columns:repeat(3,1fr)}.main-grid,.twocol{grid-template-columns:1fr}.capgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){main{padding:22px 12px}.formgrid,.twocol.equal{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.capgrid{grid-template-columns:1fr}.chartrow .label{width:112px}.metric{padding:14px}.metric strong{font-size:25px}}
+
+.anki-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.anki-deck{border:1px solid #e7eaf2;border-radius:14px;padding:18px;background:#fff}.anki-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:13px}.anki-tag{background:#f0edff;color:#6250df;padding:6px 9px;border-radius:20px;font-size:11px;font-weight:750}.anki-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.anki-stat{background:#f7f8fc;padding:13px;border-radius:10px}.anki-stat strong{display:block;font-size:24px;letter-spacing:-.4px;margin:4px 0}.anki-stat span{font-size:11px;color:#788298}.anki-progress{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:15px 0 8px}.anki-progress-track{height:11px;border-radius:30px;background:#eceef5;overflow:hidden}.anki-progress-fill{height:100%;background:linear-gradient(90deg,#6755ee,#9384ff);width:20.67%;border-radius:30px}.anki-split{display:flex;gap:5px;height:11px;border-radius:30px;overflow:hidden;background:#eceef5}.anki-split .young{width:20.67%;background:#04a99b}.anki-split .new{width:79.33%;background:#cdd5e8}.anki-foot{font-size:12px;color:#768199;line-height:1.6;margin-top:12px}.anki-pending{min-height:245px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px dashed #dce0ee;background:#fafbff;border-radius:12px;padding:22px;color:#7b859b}.anki-pending strong{color:#18233d;margin-bottom:7px}@media(max-width:700px){.anki-grid{grid-template-columns:1fr}}
+
+.anki-simple-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.anki-simple-card{background:linear-gradient(150deg,#fff,#fafaff);border:1px solid #e5e6f2;border-radius:16px;padding:22px;box-shadow:0 4px 18px rgba(32,32,70,.035)}
+.anki-simple-top{display:flex;align-items:center;gap:11px}.anki-simple-top h3{font-size:16px;margin:0 0 3px}.anki-simple-top p{font-size:12px;color:#788298;margin:0}.anki-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;font-weight:800;font-size:17px}.anki-icon.purple{background:#efedff;color:#6b57ec}.anki-icon.teal{background:#e3f8f5;color:#009e90}.anki-preview-tag{margin-left:auto;color:#7060d9;background:#f0edff;border-radius:20px;padding:5px 9px;font-size:10px;font-weight:700;white-space:nowrap}
+.anki-simple-body{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:22px 0 18px}.anki-big-number strong{font-size:35px;letter-spacing:-1.5px;line-height:1.1;display:block;color:#17223a}.anki-big-number strong span{font-size:21px;color:#788298;font-weight:650}.anki-big-number small{display:block;font-size:12px;color:#788298;margin-top:7px}.anki-big-number .anki-not-started{font-size:25px;letter-spacing:-.5px}
+.anki-ring{--pct:0;--ring:#705cf0;flex:0 0 112px;width:112px;height:112px;border-radius:50%;background:conic-gradient(var(--ring) calc(var(--pct)*1%),#e9eaf3 0);display:grid;place-items:center}.anki-ring>div{width:91px;height:91px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}.anki-ring strong{font-size:24px;color:#17223a}.anki-ring small{font-size:11px;color:#788298}.anki-ring.empty{background:conic-gradient(#e9eaf3 0 100%)}.anki-simple-track{height:9px;background:#e9eaf3;border-radius:20px;overflow:hidden}.anki-simple-fill{height:100%;background:linear-gradient(90deg,#705cf0,#9c8dff);border-radius:20px}.anki-simple-fill.teal{background:#05a99b}.anki-simple-caption{font-size:11px;color:#788298;margin:9px 0 0}
+@media(max-width:700px){.anki-simple-grid{grid-template-columns:1fr}.anki-simple-card{padding:17px}.anki-ring{flex-basis:94px;width:94px;height:94px}.anki-ring>div{width:76px;height:76px}}
+
+.top-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.anki-ring{transition:background .25s}
+
+/* Visual review v5: styling inspired by references; original labels and data preserved */
+:root{color:#101d39;background:#f3f6fc;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{background:radial-gradient(ellipse 85% 400px at 50% -100px,#e9efff 0%,transparent 82%),#f3f6fc}
+main{max-width:1310px;padding:34px 28px 75px}
+.top{margin-bottom:23px;align-items:center}.top h1{font-size:34px;font-weight:800;letter-spacing:-1.15px;color:#101a35}.top .muted{font-size:13px;color:#667792}.eyebrow{color:#6756ed;font-size:11px}.pill{border:1px solid #e4e7fa}
+.panel,.metric{border:1px solid #e9edf5;border-radius:17px;background:#fff;box-shadow:0 5px 24px rgba(30,48,85,.045)}
+.panel{padding:23px 25px;margin:0}.panel h2{font-size:17px;font-weight:780;color:#13213e}.section-head{margin-bottom:22px}.section-note{font-size:12px;margin:4px 0 0;color:#78859e}
+.settings{margin-bottom:16px}.settings.collapsed{padding:13px 21px}.settings-toggle{font-size:13px;font-weight:750}
+.cards{gap:12px;margin:0 0 17px}.metric{padding:17px 17px 19px;min-height:137px}.metric-top{display:flex;align-items:center;gap:10px;min-height:36px}.metric-top>span:last-child{font-size:10px;letter-spacing:.35px;font-weight:750;color:#74819b}.metric-icon{width:37px;height:37px;border-radius:12px;background:#f0edff;color:#6c5bf0;display:grid;place-items:center;font-size:22px;font-weight:700}.mi-1{background:#eaf4ff;color:#3689e7}.mi-2{background:#f0edff;color:#6c5bf0}.mi-3{background:#e9f8f4;color:#0ba998}.mi-4{background:#fff2e9;color:#f47b42}.metric strong{font-size:28px;font-weight:850;margin:13px 0 5px;color:#101b35}.metric .meta{line-height:1.4;color:#8290a7}
+.main-grid{grid-template-columns:1.2fr 1fr;gap:15px}.main-grid>.panel{min-width:0}.wide{grid-column:1/-1}
+.chartrow{margin:17px 0;gap:13px}.chartrow .label{width:172px;font-size:12px;color:#33415d}.chartrow .value{font-size:12px;color:#1d2b47}.track{height:11px;background:#edf0f6}.fill{background:linear-gradient(90deg,#6b55ee,#9987ff)}
+.month-bars{height:232px;align-items:flex-end;gap:16px;padding:14px 12px 0;background:repeating-linear-gradient(to top,transparent 0,transparent 44px,#eef1f7 45px,#eef1f7 46px);border-bottom:1px solid #dce3ef;overflow:visible}.month-group{height:100%;justify-content:flex-end;gap:7px}.month-bar{width:min(58px,76%);min-height:4px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,#806cf7,#6555e9);box-shadow:0 2px 8px #6b5bf024}.month-label{padding:0 0 5px;color:#6f7d96}.month-value{font-weight:800;color:#17243f}.month-grid{margin-top:18px}.month-cell{background:#fbfcff;border-color:#e9edf6}.month-cell strong{font-size:18px}.month-cell span{display:block;margin-top:5px}
+.trend-wrap{padding:0}.trend-svg{filter:drop-shadow(0 2px 2px rgba(65,65,110,.04))}.trend-legend{gap:16px;margin-top:15px}.legend-dot{border-radius:50%}.note{background:#f6f4ff;border-left-color:#715df2;color:#4e5374;margin-top:16px}
+.capgrid{display:grid;grid-template-columns:1fr;gap:7px}.cap{border:0;border-bottom:0px solid #f0f2f7;border-radius:0;padding:9px 0 15px}.cap:last-child{border-bottom:0}.cap-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.cap h3{font-size:12px;margin:0;color:#26344e}.cap-number{font-size:17px;color:#13213e}.cap .track{margin:10px 0 7px}.cap .mini{font-size:10px; display: none;}
+.anki-simple-grid{gap:17px}.anki-simple-card{border:1px solid #e6e8f5;background:linear-gradient(155deg,#fff,#fcfbff);padding:20px 22px}.anki-simple-body{justify-content:space-between}.anki-big-number strong{font-size:38px}.anki-ring{flex-basis:108px;width:108px;height:108px}.anki-ring>div{width:86px;height:86px}.anki-icon{font-size:15px}.anki-simple-track{margin-top:3px}.anki-simple-caption{margin-top:9px}
+.empty{background:#f9faff;border-color:#dce4f1;line-height:1.55}.table-details{margin-top:18px}.table-details summary{font-size:12px}.footer{margin-top:23px}
+@media(max-width:950px){main{padding:25px 18px}.main-grid{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.chartrow .label{width:126px}.panel{padding:20px}}
+@media(max-width:730px){.main-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.anki-simple-grid{grid-template-columns:1fr}.chartrow .label{width:140px}.top h1{font-size:27px}}
+@media(max-width:420px){main{padding:18px 11px}.metric{padding:13px;min-height:120px}.metric strong{font-size:24px}.metric-top{gap:6px}.metric-icon{width:30px;height:30px;font-size:18px}.metric-top>span:last-child{font-size:9px}.chartrow .label{width:104px;font-size:11px}.chartrow .value{width:52px}.panel{padding:17px}}
+
+/* v6 compact density pass: presentation only; calculations and data untouched */
+main{max-width:1320px;padding:22px 25px 42px}
+.top{margin-bottom:13px;gap:9px}.top h1{font-size:29px;margin:2px 0 4px}.top .muted{margin:0;font-size:12px}.eyebrow{font-size:10px}
+.settings{margin-bottom:11px}.settings.collapsed{padding:10px 17px}.settings-body{margin-top:12px}
+.cards{gap:10px;margin-bottom:11px}.metric{padding:12px 14px;min-height:102px;border-radius:13px}.metric-top{min-height:30px;gap:8px}.metric-icon{width:31px;height:31px;border-radius:9px;font-size:18px}.metric strong{font-size:26px;margin:6px 0 3px}.metric .meta{font-size:10px;line-height:1.25}
+.main-grid,.bottom-grid{gap:11px}.panel{padding:17px 19px;border-radius:14px}.panel h2{font-size:16px}.section-head{margin-bottom:11px}.section-note{font-size:11px;margin-top:2px}
+.chartrow{margin:10px 0;gap:9px}.chartrow .label{width:160px;font-size:11px}.chartrow .value{font-size:11px}.track{height:9px}
+.month-bars{height:163px;gap:11px;padding:9px 7px 0;background:repeating-linear-gradient(to top,transparent 0,transparent 31px,#eef1f7 32px,#eef1f7 33px)}.month-group{gap:4px}.month-bar{width:min(48px,75%)}.month-grid{margin-top:10px;gap:7px}.month-cell{padding:9px}.month-cell strong{font-size:16px}.month-cell span{margin-top:2px}
+.trend-wrap{padding:0}.trend-legend{gap:10px;margin:7px 0}.note{padding:9px 11px;margin-top:10px;font-size:11px}.capgrid{gap:3px}.cap{padding:7px 0 9px}.cap .track{margin:7px 0 5px}.cap-number{font-size:16px}
+.anki-simple-grid{gap:12px}.anki-simple-card{padding:14px 16px;border-radius:13px}.anki-simple-body{margin:12px 0 10px}.anki-big-number strong{font-size:32px}.anki-big-number strong span{font-size:17px}.anki-ring{flex-basis:86px;width:86px;height:86px}.anki-ring>div{width:68px;height:68px}.anki-ring strong{font-size:20px}.anki-ring small{font-size:10px}.anki-simple-top h3{font-size:14px}.anki-icon{width:32px;height:32px}.anki-simple-caption{margin-top:6px}.anki-simple-track{height:8px}
+.empty{padding:12px}.table-details{margin-top:10px}.footer{margin-top:15px}
+@media(max-width:950px){main{padding:20px 16px 35px}.panel{padding:16px}.chartrow .label{width:125px}}
+@media(max-width:730px){.main-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.anki-simple-grid{grid-template-columns:1fr}.chartrow .label{width:140px}}
+@media(max-width:420px){main{padding:14px 10px 26px}.panel{padding:13px}.metric{padding:11px;min-height:97px}.metric strong{font-size:23px}.chartrow .label{width:104px}.chartrow .value{width:48px}}
+</style></head><body><main>
+<div class="top"><div><div class="eyebrow">LIVE XAPI LEARNING DASHBOARD</div><h1>My Spanish Learning Journey</h1><div class="muted">Learning effort, progress and capability.</div></div><div class="top-controls"><span class="pill" id="badge">Loading data…</span></div></div>
+
+<div class="cards"><div class="metric"><div class="metric-top"><span class="metric-icon mi-0">◷</span><span>TOTAL STUDY</span></div><strong id="time">—</strong><span class="meta">Recorded study duration</span></div><div class="metric"><div class="metric-top"><span class="metric-icon mi-1">▦</span><span>ACTIVE DAYS</span></div><strong id="days">—</strong><span class="meta">Days with study sessions</span></div><div class="metric"><div class="metric-top"><span class="metric-icon mi-2">▷</span><span>LEARNING SESSIONS</span></div><strong id="sessions">—</strong><span class="meta">Sessions logged</span></div><div class="metric"><div class="metric-top"><span class="metric-icon mi-3">◴</span><span>AVERAGE SESSION</span></div><strong id="avg">—</strong><span class="meta">Minutes per session</span></div><div class="metric"><div class="metric-top"><span class="metric-icon mi-4">◎</span><span>ANKI PROGRESS</span></div><strong id="anki-average">—</strong><span class="meta" id="anki-average-note">Average of vocabulary and phrase deck progress</span></div></div>
+<div class="main-grid">
+
+<section class="panel"><div class="section-head"><h2>Where did my effort go?</h2><p class="section-note">Time by primary learning format.</p></div><div id="formats" class="empty">Waiting for published study data.</div><details class="table-details"><summary>View time by resource</summary><div id="resources" class="empty">No data yet.</div></details><p class="mini">Supporting formats do not add extra minutes.</p></section>
+
+<section class="panel"><div class="section-head"><h2>Effort by month</h2><p class="section-note">How much time did I actually spend studying?</p></div><div id="monthly" class="empty">Waiting for published study sessions.</div></section>
+<section class="panel"><div class="section-head"><h2>Is my Spanish improving?</h2><p class="section-note">Six skill assessment trends over time — test accuracy, not A1 completion.</p></div><div id="trend" class="empty">Waiting for published assessment evidence.</div></section>
+<section class="panel"><div class="section-head"><h2>Current capability</h2><p class="section-note">Latest test accuracy by skill and reported CEFR level.</p></div><div id="capabilities" class="capgrid"><div class="empty">Waiting for published capability data.</div></div></section>
+<section class="panel wide" id="anki-progress">
+<div class="section-head"><h2>Vocabulary &amp; phrase progress</h2><p class="section-note">Anki progress based on mature cards (review interval ≥ 21 days). Counts and progress are shown separately.</p></div>
+<div class="anki-simple-grid">
+  <article class="anki-simple-card">
+    <div class="anki-simple-top"><span class="anki-icon purple">Aa</span><div><h3>Vocabulary</h3><p>Cognates deck</p></div><span class="anki-preview-tag" id="anki-label">Awaiting LRS</span></div>
+    <div class="anki-simple-body"><div class="anki-big-number"><strong class="anki-not-started" id="vocab-count">—</strong><small>mature vocabulary cards</small></div><div class="anki-ring" id="vocab-ring" style="--pct:0;--ring:#705cf0" role="img" aria-label="Vocabulary progress unavailable"><div><strong id="vocab-percent">—</strong><small>progress</small></div></div></div>
+    <div class="anki-simple-track"><div class="anki-simple-fill" id="vocab-fill" style="width:0%"></div></div>
+    <p class="anki-simple-caption" id="vocab-caption">Waiting for published Cognates progress</p>
+  </article>
+  <article class="anki-simple-card">
+    <div class="anki-simple-top"><span class="anki-icon teal">“ ”</span><div><h3>Phrases</h3><p>Phrases deck</p></div></div>
+    <div class="anki-simple-body"><div class="anki-big-number"><strong class="anki-not-started" id="phrase-count">Not started</strong><small>mature phrase cards</small></div><div class="anki-ring empty" id="phrase-ring" role="img" aria-label="Phrase progress unavailable"><div><strong id="phrase-percent">—</strong><small>progress</small></div></div></div>
+    <div class="anki-simple-track"><div class="anki-simple-fill teal" id="phrase-fill" style="width:0%"></div></div>
+    <p class="anki-simple-caption" id="phrase-caption">Progress will appear once the deck has data</p>
+  </article>
+</div>
+<div class="note" id="anki-note">Waiting for published data to load your latest Anki deck snapshots. Mature means a review interval of at least 21 days, not verified mastery.</div>
+</section>
+<section class="panel wide"><div class="section-head"><h2>Which learning formats seem to help?</h2><p class="section-note">Association with later performance — not proof of causation.</p></div><div id="relationships" class="empty">Waiting for published study and assessment history.</div></section>
+</div><p class="footer" id="footer" style="display: none;">Spanish Learning xAPI Profile v1 · Live Veracity data · Anki snapshots from LRS</p></main>
+<script>
+'use strict';
+const BASE='https://shaabanahmed.com/xapi/spanish-learning/';const OLD='https://example.org/spanish-learning/xapi/';
+const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getExt(obj,name){const ex=obj||{};return ex[BASE+'extensions/'+name]??ex[OLD+'extensions/'+name]??null}
+function verb(s){let id=s.verb?.id||'';if(id.endsWith('/studied'))return 'studied';if(id.endsWith('/was-assessed'))return 'assessed';return ''}
+function date(s){const t=s.timestamp||s.stored;const d=new Date(t);return isNaN(d)?null:d}
+function duration(s){const v=s.result?.duration||'';const m=v.match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/);return m?(+ (m[1]||0)*1440 + +(m[2]||0)*60 + +(m[3]||0) + +(m[4]||0)/60):0}
+function dayKey(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function titleCase(v){return String(v||'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
+function formatMinutes(n){return n>=60?`${+(n/60).toFixed(1)} h`:`${Math.round(n)} min`}
+function barRows(map){const entries=Object.entries(map).sort((a,b)=>b[1]-a[1]);if(!entries.length)return '<div class="empty">No study sessions yet.</div>';const max=Math.max(...entries.map(x=>x[1]),1);return entries.map(([k,v])=>`<div class="chartrow"><span class="label">${esc(k)}</span><div class="track"><div class="fill" style="width:${100*v/max}%"></div></div><span class="value">${formatMinutes(v)}</span></div>`).join('')}
+function capName(s){const id=s.object?.id||'';const names=['grammar','vocabulary','listening','reading','writing','speaking','language-knowledge','production'];const last=id.split('/').pop();if(names.includes(last))return titleCase(last);const n=s.object?.definition?.name?.['en-US']||'';for(const c of names)if(n.toLowerCase().includes(c.replace('-',' ')))return titleCase(c);return null}
+function render(stmts){
+renderAnki(stmts);const sessions=stmts.filter(s=>verb(s)==='studied');const assessments=stmts.filter(s=>verb(s)==='assessed'&&capName(s));const mins=sessions.map(duration);const total=mins.reduce((a,b)=>a+b,0);const dates=[...new Set(sessions.map(s=>date(s)).filter(Boolean).map(dayKey))].sort();let gap=null;for(let i=1;i<dates.length;i++){const d=Math.round((new Date(dates[i]+'T12:00:00')-new Date(dates[i-1]+'T12:00:00'))/86400000)-1;gap=Math.max(gap??0,d)}
+$('time').textContent=formatMinutes(total);$('days').textContent=dates.length;$('sessions').textContent=sessions.length;$('avg').textContent=sessions.length?Math.round(total/sessions.length)+' min':'—';
+const resources={},formats={},months=new Map();for(const s of sessions){const r=getExt(s.result?.extensions,'resource')||s.object?.definition?.name?.['en-US']?.split(' — ')[0]||'Unknown';const f=getExt(s.result?.extensions,'primary-format')||'Unspecified';const n=duration(s);resources[r]=(resources[r]||0)+n;formats[f]=(formats[f]||0)+n;const d=date(s);if(d){const key=dayKey(d).slice(0,7);if(!months.has(key))months.set(key,{minutes:0,days:new Set(),sessions:0});const m=months.get(key);m.minutes+=n;m.sessions++;m.days.add(dayKey(d))}}
+$('resources').innerHTML=barRows(resources);$('formats').innerHTML=barRows(formats);
+if(!months.size){$('monthly').innerHTML='<div class="empty">No study sessions yet.</div>'}else{const entries=[...months.entries()].sort((a,b)=>a[0].localeCompare(b[0]));const max=Math.max(...entries.map(x=>x[1].minutes),1);$('monthly').innerHTML=`<div class="month-bars">${entries.map(([k,m])=>`<div class="month-group"><span class="month-value">${formatMinutes(m.minutes)}</span><div class="month-bar" style="height:${Math.max(4,158*m.minutes/max)}px"></div><span class="month-label">${esc(k)}</span></div>`).join('')}</div><div class="month-grid">${entries.map(([k,m])=>`<div class="month-cell"><strong>${formatMinutes(m.minutes)}</strong><span>${m.days.size} active day${m.days.size===1?'':'s'}</span></div>`).join('')}</div>${entries.length===1?'<div class="note">Only one month of recorded effort so far. Monthly comparisons will appear as you continue studying.</div>':''}`}
+const data=assessments.map(s=>({s,d:date(s),cap:capName(s),score:Number(s.result?.score?.scaled!=null?s.result.score.scaled*100:(s.result?.score?.raw??NaN)),level:getExt(s.context?.extensions,'cefr-target')||'—',assessed:getExt(s.context?.extensions,'cefr-assessed')||'—',source:getExt(s.context?.extensions,'assessment-source')||'Unspecified'})).filter(x=>x.d&&Number.isFinite(x.score)).sort((a,b)=>a.d-b.d);
+const latest={};for(const a of data)latest[a.cap]=a;const capnames=['Grammar','Vocabulary','Listening','Reading','Writing','Speaking'];$('capabilities').innerHTML=capnames.map((c,i)=>{const a=latest[c];const colors=['#705cf0','#9987ff','#0ba998','#3689e7','#f47b42','#dc658e'];return `<div class="cap"><div class="cap-top"><h3>${c}</h3><strong class="cap-number">${a?+a.score.toFixed(1)+'%':'—'}</strong></div>${a?`<div class="track"><div class="fill" style="background:${colors[i]};width:${Math.max(0,Math.min(100,a.score))}%"></div></div><div class="mini">Target ${esc(a.level)} · Assessed ${esc(a.assessed)} · ${esc(dayKey(a.d))} · ${esc(a.source)}</div>`:'<div class="muted small">No assessment recorded</div>'}</div>`}).join('');
+if(!data.some(a=>capnames.includes(a.cap))){$('trend').innerHTML='<div class="empty">No capability assessments found.</div>'}else{
+const eventKeys=[...new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>a.s.context?.registration||dayKey(a.d)+'|'+a.source))];const colors={'Grammar':'#705cf0','Vocabulary':'#9987ff','Listening':'#0ba998','Reading':'#3689e7','Writing':'#f47b42','Speaking':'#dc658e'};
+const pointsByCap={};for(const cap of capnames){pointsByCap[cap]=data.filter(a=>a.cap===cap)}
+const chartW=610,chartH=235,left=35,right=15,top=20,bottom=35;const allDates=[...new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>dayKey(a.d)))].sort();const xFor=d=>allDates.length<=1?(left+chartW-right)/2:left+(allDates.indexOf(dayKey(d))/(allDates.length-1))*(chartW-left-right);const yFor=n=>top+(100-n)/100*(chartH-top-bottom);let svg=`<svg class="trend-svg" viewBox="0 0 ${chartW} ${chartH}" role="img" aria-label="Capability assessment scores by date">`;
+for(const n of [0,25,50,75,100]){const y=yFor(n);svg+=`<line x1="${left}" x2="${chartW-right}" y1="${y}" y2="${y}" stroke="#e9ebf3"/><text x="${left-8}" y="${y+4}" font-size="11" fill="#7a8499" text-anchor="end">${n}</text>`}
+for(const [di,d] of allDates.entries()){if(allDates.length>7&&di%Math.ceil(allDates.length/7)!==0&&di!==allDates.length-1)continue;svg+=`<text x="${allDates.length===1?xFor(data[0].d):xFor(new Date(d+'T12:00:00'))}" y="${chartH-7}" font-size="11" fill="#7a8499" text-anchor="middle">${esc(d.slice(5))}</text>`}
+for(const cap of capnames){const arr=pointsByCap[cap];if(!arr.length)continue;const color=colors[cap];const coords=arr.map(a=>[xFor(a.d),yFor(a.score)]);if(coords.length>1)svg+=`<polyline points="${coords.map(([x,y])=>`${x},${y}`).join(' ')}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;for(let i=0;i<coords.length;i++){const [x,y]=coords[i];svg+=`<circle cx="${x}" cy="${y}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${esc(cap)}: ${arr[i].score.toFixed(1)}% · ${esc(arr[i].level)} · ${esc(dayKey(arr[i].d))}</title></circle>`}}
+svg+='</svg>';const legend=capnames.filter(c=>pointsByCap[c].length).map(c=>`<span><i class="legend-dot" style="background:${colors[c]}"></i>${esc(c)}</span>`).join('');const caution=allDates.length<2?'Only one assessment date so far. These scores establish your baseline; improvement will become visible after another assessment.':'Trends show test accuracy, not percentage of CEFR mastery. Compare scores from the same test source and target level where possible.';
+const rows=data.filter(a=>capnames.includes(a.cap)).map(a=>`<tr><td>${esc(dayKey(a.d))}</td><td>${esc(a.cap)}</td><td>${esc(a.level)}</td><td>${esc(a.assessed)}</td><td>${esc(a.score.toFixed(1))}%</td><td>${esc(a.source)}</td></tr>`).join('');
+$('trend').innerHTML=`<div class="trend-wrap">${svg}<div class="trend-legend">${legend}</div><div class="note">${caution}</div><details class="table-details"><summary>View assessment details</summary><div class="scroll"><table class="assess-table"><thead><tr><th>Date</th><th>Capability</th><th>Target CEFR</th><th>Assessed CEFR</th><th>Score</th><th>Source</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`}
+const uniqueDates=new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>dayKey(a.d)));if(!sessions.length||uniqueDates.size<2){$('relationships').innerHTML='<div class="empty">Not enough evidence yet. We need repeated study sessions followed by assessments on different dates before comparing learning formats with performance.</div>'}else{$('relationships').innerHTML=`<div class="empty">${sessions.length} study session(s) across ${Object.keys(formats).length} primary format(s) and ${uniqueDates.size} assessment dates. We need repeated comparable assessments and sufficient study history before showing association scores.</div>`}
+$('badge').textContent=`${stmts.length} statements loaded`;}
+async function loadPublicData(){
+ try{
+  $('badge').textContent='Updating…';
+  const response=await fetch('./data.json',{cache:'no-store'});
+  if(!response.ok)throw Error('Published data is not available yet');
+  const data=await response.json();
+  if(!Array.isArray(data.statements))throw Error('Unexpected published data format');
+  render(data.statements);
+  if(data.updated_at){$('footer').textContent='Spanish Learning xAPI Profile v1 · Live Veracity data · Last synced '+new Date(data.updated_at).toLocaleString();}
+ }catch(err){$('badge').textContent='Data unavailable';console.error('Dashboard update failed:',err);}
+}
+
+function setAnki(mature,total,kind){
+ const pct=total?100*mature/total:0;
+ const prefix=kind==='vocab'?'vocab':'phrase';
+ const count=$(prefix+'-count'),ring=$(prefix+'-ring');
+ count.innerHTML=total?`${mature.toLocaleString()} <span>/ ${total.toLocaleString()}</span>`:'No data';
+ count.classList.toggle('anki-not-started',!total);
+ $(prefix+'-percent').textContent=total?`${pct.toFixed(1)}%`:'—';
+ ring.classList.toggle('empty',!total);
+ ring.style.setProperty('--pct',pct.toFixed(3));
+ ring.style.setProperty('--ring',kind==='vocab'?'#705cf0':'#05a99b');
+ ring.setAttribute('aria-label',total?`${kind} progress: ${pct.toFixed(1)} percent`:`${kind} progress unavailable`);
+ $(prefix+'-fill').style.width=pct+'%';
+ $(prefix+'-caption').textContent=total?`${mature.toLocaleString()} of ${total.toLocaleString()} cards have reached mature status`:'Progress will appear once the deck has data';
+ updateAnkiAverage();
+}
+function updateAnkiAverage(){
+ const v=Number($('vocab-ring').style.getPropertyValue('--pct'));
+ const p=Number($('phrase-ring').style.getPropertyValue('--pct'));
+ const both=$('vocab-count').textContent.includes('/') && $('phrase-count').textContent.includes('/');
+ $('anki-average').textContent=both?`${((v+p)/2).toFixed(1)}%`:'—';
+ $('anki-average-note').textContent=both?'Average of vocabulary and phrase progress':'Available when both decks have data';
+}
+function renderAnki(stmts){
+ const snapshots={cognates:[],phrases:[]};
+ for(const s of stmts){
+  if(s.verb?.id!==BASE+'verbs/recorded')continue;
+  const id=s.object?.id||'';
+  const deck=id===BASE+'activities/anki/cognates'?'cognates':id===BASE+'activities/anki/phrases'?'phrases':null;
+  if(!deck)continue;
+  const total=getExt(s.result?.extensions,'total-cards');
+  const mature=getExt(s.result?.extensions,'mature-cards');
+  const t=Number(total),m=Number(mature);
+  if(total==null||mature==null||!Number.isInteger(t)||t<1||!Number.isInteger(m)||m<0||m>t)continue;
+  const when=date(s);
+  if(!when)continue;
+  snapshots[deck].push({total:t,mature:m,when,stored:Date.parse(s.stored||'')||0});
+ }
+ for(const [deck,kind] of [['cognates','vocab'],['phrases','phrase']]){
+  const rows=snapshots[deck].sort((a,b)=>b.when-a.when||b.stored-a.stored);
+  if(rows.length){setAnki(rows[0].mature,rows[0].total,kind)}
+  else{setAnki(0,0,kind)}
+ }
+ const count=snapshots.cognates.length+snapshots.phrases.length;
+ $('anki-label').textContent=count?'Live LRS':'No snapshots';
+ $('anki-note').textContent=count?'Anki figures use the latest valid snapshot per deck from Veracity. Mature means a review interval of at least 21 days, not verified mastery.':'No Anki progress snapshots found for this learner. Use the Anki Progress Recorder, then reload the dashboard.';
+}
+setAnki(0,0,'vocab');setAnki(0,0,'phrase');
+loadPublicData();
+setInterval(loadPublicData, 5 * 60 * 1000);
+</script></body></html>
