@@ -47,6 +47,25 @@ main{max-width:1320px;padding:22px 25px 42px}
 @media(max-width:950px){main{padding:20px 16px 35px}.panel{padding:16px}.chartrow .label{width:125px}}
 @media(max-width:730px){.main-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.anki-simple-grid{grid-template-columns:1fr}.chartrow .label{width:140px}}
 @media(max-width:420px){main{padding:14px 10px 26px}.panel{padding:13px}.metric{padding:11px;min-height:97px}.metric strong{font-size:23px}.chartrow .label{width:104px}.chartrow .value{width:48px}}
+
+/* Six-skill CEFR evidence: compact A1-B2 grid consistent with dashboard styling */
+.cefr-panel{grid-column:auto;min-width:0}.cefr-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.cefr-top select{width:auto;min-width:148px;border:1px solid #e1e5f0;border-radius:24px;padding:8px 12px;font:inherit;font-size:12px;color:#23314c;background:#fff}.cefr-focus-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:750;margin-bottom:8px}.cefr-focus{margin-bottom:17px}.cefr-cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.cefr-cell{border-radius:10px;background:#f0f2f6;color:#8790a0;padding:12px 8px;text-align:center;font-size:12px;min-height:64px;display:flex;flex-direction:column;justify-content:center;gap:5px}.cefr-cell strong{font-size:13px}.cefr-cell.passed{background:#08a797;color:#fff}.cefr-cell.tested{background:#7564ee;color:#fff}.cefr-cell.unknown{background:#f1f2f6;color:#9ca5b4}.cefr-rows{display:grid;gap:12px;padding-top:13px;border-top:1px solid #eef0f6}.cefr-row-title{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;font-size:11px}.cefr-mini{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.cefr-mini>div{height:13px;border-radius:4px;background:#f0f2f6}.cefr-mini .passed{background:#08a797}.cefr-mini .tested{background:#8c7bf0}.cefr-key{display:flex;gap:15px;flex-wrap:wrap;font-size:10px;color:#738097;margin-top:12px}.cefr-key i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px}.trend-detail{margin-top:6px}.trend-legend span{white-space:nowrap}.trend-svg circle{cursor:default}
+@media(max-width:600px){.cefr-cells{gap:5px}.cefr-cell{padding:10px 3px;min-height:57px}.cefr-mini{gap:5px}}
+
+
+[hidden]{display:none!important}
+
+/* Shared date tooltip for assessment chart */
+.trend-chart-interactive{position:relative;isolation:isolate}
+.trend-shared-tip{position:absolute;z-index:5;min-width:162px;max-width:215px;background:#fff;border:1px solid #e5e9f3;border-radius:12px;padding:11px 13px;box-shadow:0 12px 35px rgba(24,36,68,.16);pointer-events:none;font-size:12px;color:#24324c}
+.trend-shared-tip[hidden]{display:none}
+.trend-tip-date{font-weight:800;font-size:12px;margin-bottom:8px;color:#27334d}
+.trend-tip-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:3px 0;white-space:nowrap}
+.trend-tip-name{display:flex;align-items:center;gap:7px;color:#596579}
+.trend-tip-dot{width:9px;height:9px;flex:0 0 9px;border-radius:50%}
+.trend-tip-row strong{font-weight:750;font-variant-numeric:tabular-nums;color:#202b43}
+.trend-svg .trend-hover-guide{pointer-events:none}
+.trend-svg .trend-point:focus{outline:none;stroke:#17243f;stroke-width:2.5}
 </style></head><body><main>
 <div class="top"><div><div class="eyebrow">LIVE XAPI LEARNING DASHBOARD</div><h1>My Spanish Learning Journey</h1><div class="muted">Learning effort, progress and capability.</div></div><div class="top-controls"><span class="pill" id="badge">Loading data…</span></div></div>
 
@@ -56,13 +75,14 @@ main{max-width:1320px;padding:22px 25px 42px}
 <section class="panel"><div class="section-head"><h2>Where did my effort go?</h2><p class="section-note">Time by primary learning format.</p></div><div id="formats" class="empty">Waiting for published study data.</div><details class="table-details"><summary>View time by resource</summary><div id="resources" class="empty">No data yet.</div></details><p class="mini">Supporting formats do not add extra minutes.</p></section>
 
 <section class="panel"><div class="section-head"><h2>Effort by month</h2><p class="section-note">How much time did I actually spend studying?</p></div><div id="monthly" class="empty">Waiting for published study sessions.</div></section>
-<section class="panel"><div class="section-head"><h2>Is my Spanish improving?</h2><p class="section-note">Six skill assessment trends over time — test accuracy, not A1 completion.</p></div><div id="trend" class="empty">Waiting for published assessment evidence.</div></section>
-<section class="panel"><div class="section-head"><h2>Current capability</h2><p class="section-note">Latest test accuracy by skill and reported CEFR level.</p></div><div id="capabilities" class="capgrid"><div class="empty">Waiting for published capability data.</div></div></section>
+<section class="panel"><div class="section-head"><h2>Is my Spanish improving?</h2><p class="section-note">Combined question accuracy over time</p></div><div id="trend" class="empty">Waiting for published assessment evidence.</div></section>
+<section class="panel cefr-panel"><div class="cefr-top"><div><h2>Overall Skill Progress</h2><p class="section-note">Assessment performance across CEFR levels · A1 to B2</p></div><select id="cefr-skill-select" aria-label="Select a skill"><option>Grammar</option><option>Vocabulary</option><option>Listening</option><option>Reading</option><option>Writing</option><option>Speaking</option></select></div><div id="cefr-progress" class="empty">Waiting for published skill assessments.</div></section>
+<section class="panel" id="private-capability" hidden><div class="section-head"><h2>Current capability</h2><p class="section-note">Latest reported CEFR level and assessment evidence by skill.</p></div><div id="capabilities" class="capgrid"><div class="empty">Waiting for published capability data.</div></div></section>
 <section class="panel wide" id="anki-progress">
 <div class="section-head"><h2>Vocabulary &amp; phrase progress</h2><p class="section-note">Anki progress based on mature cards (review interval ≥ 21 days). Counts and progress are shown separately.</p></div>
 <div class="anki-simple-grid">
   <article class="anki-simple-card">
-    <div class="anki-simple-top"><span class="anki-icon purple">Aa</span><div><h3>Vocabulary</h3><p>Cognates deck</p></div><span class="anki-preview-tag" id="anki-label">Awaiting LRS</span></div>
+    <div class="anki-simple-top"><span class="anki-icon purple">Aa</span><div><h3>Vocabulary</h3><p>Cognates deck</p></div></div>
     <div class="anki-simple-body"><div class="anki-big-number"><strong class="anki-not-started" id="vocab-count">—</strong><small>mature vocabulary cards</small></div><div class="anki-ring" id="vocab-ring" style="--pct:0;--ring:#705cf0" role="img" aria-label="Vocabulary progress unavailable"><div><strong id="vocab-percent">—</strong><small>progress</small></div></div></div>
     <div class="anki-simple-track"><div class="anki-simple-fill" id="vocab-fill" style="width:0%"></div></div>
     <p class="anki-simple-caption" id="vocab-caption">Waiting for published Cognates progress</p>
@@ -74,12 +94,13 @@ main{max-width:1320px;padding:22px 25px 42px}
     <p class="anki-simple-caption" id="phrase-caption">Progress will appear once the deck has data</p>
   </article>
 </div>
-<div class="note" id="anki-note">Waiting for published data to load your latest Anki deck snapshots. Mature means a review interval of at least 21 days, not verified mastery.</div>
 </section>
 <section class="panel wide"><div class="section-head"><h2>Which learning formats seem to help?</h2><p class="section-note">Association with later performance — not proof of causation.</p></div><div id="relationships" class="empty">Waiting for published study and assessment history.</div></section>
 </div><p class="footer" id="footer" style="display: none;">Spanish Learning xAPI Profile v1 · Live Veracity data · Anki snapshots from LRS</p></main>
 <script>
 'use strict';
+// Private capability panel remains calculated but is hidden unless explicitly requested in a local file.
+if(location.protocol==='file:' && new URLSearchParams(location.search).get('showCapability')==='1')document.getElementById('private-capability').hidden=false;
 const BASE='https://shaabanahmed.com/xapi/spanish-learning/';const OLD='https://example.org/spanish-learning/xapi/';
 const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function getExt(obj,name){const ex=obj||{};return ex[BASE+'extensions/'+name]??ex[OLD+'extensions/'+name]??null}
@@ -90,26 +111,137 @@ function dayKey(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'
 function titleCase(v){return String(v||'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
 function formatMinutes(n){return n>=60?`${+(n/60).toFixed(1)} h`:`${Math.round(n)} min`}
 function barRows(map){const entries=Object.entries(map).sort((a,b)=>b[1]-a[1]);if(!entries.length)return '<div class="empty">No study sessions yet.</div>';const max=Math.max(...entries.map(x=>x[1]),1);return entries.map(([k,v])=>`<div class="chartrow"><span class="label">${esc(k)}</span><div class="track"><div class="fill" style="width:${100*v/max}%"></div></div><span class="value">${formatMinutes(v)}</span></div>`).join('')}
-function capName(s){const id=s.object?.id||'';const names=['grammar','vocabulary','listening','reading','writing','speaking','language-knowledge','production'];const last=id.split('/').pop();if(names.includes(last))return titleCase(last);const n=s.object?.definition?.name?.['en-US']||'';for(const c of names)if(n.toLowerCase().includes(c.replace('-',' ')))return titleCase(c);return null}
+const SKILLS=['Grammar','Vocabulary','Listening','Reading','Writing','Speaking'];
+const CEFR=['A1','A2','B1','B2'];
+const REPORTING_CEILING='A2'; // A1+A2 for every historical date; B1/B2 remain visible in the CEFR bars.
+const SKILL_COLORS={Grammar:'#705cf0',Vocabulary:'#57bf7a',Listening:'#f18c5b',Reading:'#f0c84e',Writing:'#b28cf0',Speaking:'#e780ae'};
+function capName(s){
+ const slug=(s.object?.id||'').split('/').pop();
+ const names={grammar:'Grammar',vocabulary:'Vocabulary',listening:'Listening',reading:'Reading',writing:'Writing',speaking:'Speaking'};
+ return names[slug]||null;
+}
+function assessmentRow(s){
+ const cap=capName(s),d=date(s),level=getExt(s.context?.extensions,'cefr-target');
+ if(!cap||!d||!CEFR.includes(level))return null;
+ const source=getExt(s.context?.extensions,'assessment-source')||'Unspecified';
+ const achieved=getExt(s.context?.extensions,'cefr-achieved')||getExt(s.context?.extensions,'cefr-assessed')||'';
+ let correct=getExt(s.result?.extensions,'correct-answers'),total=getExt(s.result?.extensions,'total-questions');
+ // Accept valid raw/maximum question-count records as well, but never infer counts from a percentage.
+ if(correct==null||total==null){
+  const raw=s.result?.score?.raw,max=s.result?.score?.max;
+  if(Number.isInteger(raw)&&Number.isInteger(max)&&max>0&&raw>=0&&raw<=max&&!(max===100 && s.result?.score?.scaled!=null)){
+   correct=raw;total=max;
+  }else{correct=null;total=null;}
+ }
+ if(correct!==null){correct=Number(correct);total=Number(total);if(!Number.isInteger(correct)||!Number.isInteger(total)||total<1||correct<0||correct>total){correct=null;total=null;}}
+ const score=correct===null?Number(s.result?.score?.scaled!=null?s.result.score.scaled*100:s.result?.score?.raw):100*correct/total;
+ if(!Number.isFinite(score)||score<0||score>100)return null;
+ const stamp=Date.parse(s.stored||'')||0;
+ return {s,cap,d,day:dayKey(d),level,source,achieved,correct,total,score,stamp};
+}
+function pct(n){return Number(n.toFixed(1))+'%'}
+function assessmentVisuals(stmts){
+ const rows=stmts.filter(s=>verb(s)==='assessed').map(assessmentRow).filter(Boolean).sort((a,b)=>a.d-b.d||a.stamp-b.stamp);
+ const latestLevel={};
+ // Deduplicate multiple submissions for one skill + level + assessment date, preferring latest stored record.
+ const byDaySkillLevel={};
+ for(const r of rows){const key=r.day+'|'+r.cap+'|'+r.level;const prior=byDaySkillLevel[key];if(!prior||r.stamp>=prior.stamp)byDaySkillLevel[key]=r;}
+ const distinct=Object.values(byDaySkillLevel).sort((a,b)=>a.d-b.d||a.stamp-b.stamp);
+ for(const r of distinct){const k=r.cap+'|'+r.level;latestLevel[k]=r;}
+ const achievedBySkill={};for(const r of rows)if(r.achieved)achievedBySkill[r.cap]=r.achieved;
+ const currentSkill=$('cefr-skill-select').value;
+ const skillTiles=cap=>CEFR.map(level=>{
+  const r=latestLevel[cap+'|'+level];
+  const achieved=achievedBySkill[cap];
+  const passed=r&&achieved&&CEFR.indexOf(level)<=CEFR.indexOf(achieved)&&CEFR.includes(achieved);
+  return {level,r,cls:!r?'unknown':passed?'passed':'tested'};
+ });
+ function tileLabel(t){return t.r?pct(t.r.score):'—'}
+ function tilesMarkup(cap){return skillTiles(cap).map(t=>`<div class="cefr-cell ${t.cls}" title="${t.r?esc(t.r.day+' · '+(t.r.total!==null?t.r.correct+'/'+t.r.total:pct(t.r.score))+' · '+t.r.source):'Not assessed'}"><strong>${t.level}</strong><span>${tileLabel(t)}</span></div>`).join('');}
+ const selectedTiles=skillTiles(currentSkill);
+ $('cefr-progress').innerHTML=distinct.length?`<div class="cefr-focus"><div class="cefr-focus-head"><span>${esc(currentSkill)}</span><span class="muted">${achievedBySkill[currentSkill]?'Reported '+esc(achievedBySkill[currentSkill]):'No achieved level reported'}</span></div><div class="cefr-cells">${tilesMarkup(currentSkill)}</div></div><div class="cefr-rows"><strong style="font-size:12px">All six skills at a glance</strong>${SKILLS.map(cap=>`<div><div class="cefr-row-title"><strong>${cap}</strong><span class="muted">${achievedBySkill[cap]?'Reported '+esc(achievedBySkill[cap]):'Not reported'}</span></div><div class="cefr-mini">${skillTiles(cap).map(t=>`<div class="${t.cls}" title="${esc(cap)} · ${t.level}: ${t.r?pct(t.r.score):'not assessed'}"></div>`).join('')}</div></div>`).join('')}</div><div class="cefr-key"><span><i style="background:#08a797"></i>At/below reported level</span><span><i style="background:#8c7bf0"></i>Tested beyond reported level</span><span><i style="background:#f0f2f6"></i>Not assessed</span></div><p class="mini" style="margin-top:8px">Each tile shows the latest accuracy at that question level. Colors reflect reported levels, not an inferred pass threshold.</p>`:'<div class="empty">No six-skill assessment results recorded yet.</div>';
+ $('capabilities').innerHTML=SKILLS.map(cap=>{
+  const available=CEFR.map(level=>latestLevel[cap+'|'+level]).filter(Boolean);
+  const latest=available.length?available[available.length-1]:null;
+  const achieved=achievedBySkill[cap];
+  const basis=achieved&&latestLevel[cap+'|'+achieved]||latest;
+  return `<div class="cap"><div class="cap-top"><h3>${cap}</h3><strong class="cap-number">${achieved?esc(achieved):'—'}</strong></div><div class="track"><div class="fill" style="background:${SKILL_COLORS[cap]};width:${basis?pct(basis.score):'0%'}"></div></div><div style="font-size:11px;color:#788298">${basis?esc(basis.level)+': '+pct(basis.score)+(basis.total!==null?' ('+basis.correct+'/'+basis.total+')':'')+' · '+esc(basis.day):'No results recorded'}${achieved?' · Reported level':' · Level not reported'}</div></div>`;
+ }).join('');
+ // Shared, fixed A2 ceiling. Combine correct questions and total questions for tested levels
+ // ON EACH assessment date, never sum percentages or pool across dates.
+ const byDateSkill={};
+ for(const r of distinct){if(CEFR.indexOf(r.level)>CEFR.indexOf(REPORTING_CEILING)||r.total===null)continue;
+  const key=r.day+'|'+r.cap;(byDateSkill[key]??=[]).push(r);
+ }
+ const points={};for(const cap of SKILLS){
+  points[cap]=Object.entries(byDateSkill).filter(([key])=>key.endsWith('|'+cap)).map(([key,rs])=>{
+   const correct=rs.reduce((n,r)=>n+r.correct,0),total=rs.reduce((n,r)=>n+r.total,0);
+   return {day:key.slice(0,10),cap,correct,total,score:100*correct/total,levels:rs.sort((a,b)=>CEFR.indexOf(a.level)-CEFR.indexOf(b.level))};
+  }).sort((a,b)=>a.day.localeCompare(b.day));
+ }
+ const allPoints=SKILLS.flatMap(cap=>points[cap]);
+ if(!allPoints.length){$('trend').innerHTML='<div class="empty">No assessments with correct/total counts available yet. Record them with the updated Capability Recorder.</div>';return;}
+ const allDays=[...new Set(allPoints.map(p=>p.day))].sort();
+ const W=650,H=260,L=52,R=20,T=19,B=38;
+ const dayTimes=allDays.map(d=>new Date(d+'T12:00:00').getTime()),lo=dayTimes[0],hi=dayTimes.at(-1);
+ const x=d=>hi===lo?(L+W-R)/2:L+(new Date(d+'T12:00:00').getTime()-lo)/(hi-lo)*(W-L-R);
+ const y=n=>T+(100-n)/100*(H-T-B);
+ let svg=`<svg class="trend-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Six skills: combined assessment accuracy over time">`;
+ for(const n of [0,25,50,75,100]){const yy=y(n);svg+=`<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" stroke="#e9ebf3" stroke-dasharray="3 5"/><text x="${L-10}" y="${yy+4}" font-size="11" fill="#7a8499" text-anchor="end">${n}%</text>`;}
+ const labels=allDays.length<=6?allDays:allDays.filter((d,i)=>i===0||i===allDays.length-1||i%Math.ceil(allDays.length/6)===0);
+ for(const d of labels){svg+=`<text x="${x(d)}" y="${H-8}" font-size="11" fill="#7a8499" text-anchor="middle">${esc(new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}))}</text>`;}
+ svg+=`<line class="trend-hover-guide" x1="0" x2="0" y1="${T}" y2="${H-B}" stroke="#9aa5bb" stroke-width="1" stroke-dasharray="3 4" visibility="hidden"/>`;
+	 for(const cap of SKILLS){const ps=points[cap],c=SKILL_COLORS[cap];if(ps.length>1)svg+=`<polyline points="${ps.map(p=>x(p.day)+','+y(p.score)).join(' ')}" fill="none" stroke="${c}" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="round"/>`;for(const p of ps){const details=p.levels.map(r=>r.level+': '+r.correct+'/'+r.total).join(' · ');svg+=`<circle class="trend-point" data-day="${p.day}" tabindex="0" aria-label="${esc(cap+' · '+p.day+' · '+pct(p.score)+' ('+p.correct+'/'+p.total+') · '+details)}" cx="${x(p.day)}" cy="${y(p.score)}" r="4.5" stroke="white" stroke-width="1.6" fill="${c}"/>`;}}
+ svg+='</svg>';
+ const legend=SKILLS.map(cap=>`<span><i class="legend-dot" style="background:${SKILL_COLORS[cap]}"></i>${cap}</span>`).join('');
+ const table=allPoints.sort((a,b)=>a.day.localeCompare(b.day)||SKILLS.indexOf(a.cap)-SKILLS.indexOf(b.cap)).map(p=>`<tr><td>${esc(p.day)}</td><td>${esc(p.cap)}</td><td>${esc(p.levels.map(r=>r.level).join(' + '))}</td><td>${p.correct}/${p.total}</td><td>${pct(p.score)}</td></tr>`).join('');
+ const legacy=distinct.filter(r=>r.total===null).length;
+ $('trend').innerHTML=`<div class="trend-wrap"><div class="trend-chart-interactive">${svg}<div id="trend-shared-tip" class="trend-shared-tip" role="tooltip" hidden></div></div><div class="trend-legend">${legend}</div><p class="mini">A1+A2 reporting window (fixed): each point = correct answers ÷ total questions at levels tested on that date. B1/B2 are preserved in the CEFR view. Missing retests do not create points.</p><details class="table-details"><summary>View calculations by date</summary><div class="scroll"><table class="assess-table"><thead><tr><th>Date</th><th>Skill</th><th>Levels</th><th>Correct / total</th><th>Combined</th></tr></thead><tbody>${table}</tbody></table></div></details>${legacy?`<div class="note">${legacy} older assessment record(s) have percentages but no question counts and cannot be combined accurately. Re-record them with correct/total counts if needed.</div>`:''}<div class="note">Scores document performance on the questions tested, not certified CEFR proficiency. A changing mix of questions can affect comparisons.</div></div>`;
+ // Shared x-axis/date tooltip. Only show skills actually assessed on that day.
+ const plot=$('trend').querySelector('.trend-chart-interactive');
+ const chart=plot.querySelector('svg');
+ const tip=plot.querySelector('#trend-shared-tip');
+ const guide=chart.querySelector('.trend-hover-guide');
+ const byDay=new Map(allDays.map(day=>[day,SKILLS.map(cap=>points[cap].find(p=>p.day===day)).filter(Boolean)]));
+ function showDate(day){
+   const values=byDay.get(day);if(!values?.length)return;
+   const d=new Date(day+'T12:00:00');
+   const label=d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+   tip.innerHTML=`<div class="trend-tip-date">${esc(label)}</div>`+values.map(p=>`<div class="trend-tip-row"><span class="trend-tip-name"><i class="trend-tip-dot" style="background:${SKILL_COLORS[p.cap]}"></i>${esc(p.cap)}</span><strong>${pct(p.score)}</strong></div>`).join('');
+   tip.hidden=false;
+   const px=x(day)/W*plot.clientWidth;
+   const preferred=px+15;
+   const left=preferred+tip.offsetWidth>plot.clientWidth?px-tip.offsetWidth-15:preferred;
+   tip.style.left=Math.max(0,Math.min(plot.clientWidth-tip.offsetWidth,left))+'px';
+   tip.style.top=Math.max(3,Math.min(plot.clientHeight-tip.offsetHeight-3,plot.clientHeight*.20))+'px';
+   guide.setAttribute('x1',x(day));guide.setAttribute('x2',x(day));guide.setAttribute('visibility','visible');
+ }
+ function hideDate(){tip.hidden=true;guide.setAttribute('visibility','hidden');}
+ chart.addEventListener('pointermove',ev=>{
+   const rect=chart.getBoundingClientRect();
+   const cx=(ev.clientX-rect.left)/rect.width*W;
+   const cy=(ev.clientY-rect.top)/rect.height*H;
+   if(cx<L-10||cx>W-R+10||cy<T-12||cy>H-B+12){hideDate();return;}
+   const nearest=allDays.reduce((best,d)=>Math.abs(x(d)-cx)<Math.abs(x(best)-cx)?d:best,allDays[0]);
+   showDate(nearest);
+ });
+ chart.addEventListener('pointerleave',hideDate);
+ chart.querySelectorAll('.trend-point').forEach(node=>{
+   node.addEventListener('focus',()=>showDate(node.dataset.day));
+   node.addEventListener('blur',hideDate);
+ });
+}
+$('cefr-skill-select').addEventListener('change',()=>{if(window.lastSpanishStatements)assessmentVisuals(window.lastSpanishStatements)});
 function render(stmts){
 renderAnki(stmts);const sessions=stmts.filter(s=>verb(s)==='studied');const assessments=stmts.filter(s=>verb(s)==='assessed'&&capName(s));const mins=sessions.map(duration);const total=mins.reduce((a,b)=>a+b,0);const dates=[...new Set(sessions.map(s=>date(s)).filter(Boolean).map(dayKey))].sort();let gap=null;for(let i=1;i<dates.length;i++){const d=Math.round((new Date(dates[i]+'T12:00:00')-new Date(dates[i-1]+'T12:00:00'))/86400000)-1;gap=Math.max(gap??0,d)}
 $('time').textContent=formatMinutes(total);$('days').textContent=dates.length;$('sessions').textContent=sessions.length;$('avg').textContent=sessions.length?Math.round(total/sessions.length)+' min':'—';
 const resources={},formats={},months=new Map();for(const s of sessions){const r=getExt(s.result?.extensions,'resource')||s.object?.definition?.name?.['en-US']?.split(' — ')[0]||'Unknown';const f=getExt(s.result?.extensions,'primary-format')||'Unspecified';const n=duration(s);resources[r]=(resources[r]||0)+n;formats[f]=(formats[f]||0)+n;const d=date(s);if(d){const key=dayKey(d).slice(0,7);if(!months.has(key))months.set(key,{minutes:0,days:new Set(),sessions:0});const m=months.get(key);m.minutes+=n;m.sessions++;m.days.add(dayKey(d))}}
 $('resources').innerHTML=barRows(resources);$('formats').innerHTML=barRows(formats);
 if(!months.size){$('monthly').innerHTML='<div class="empty">No study sessions yet.</div>'}else{const entries=[...months.entries()].sort((a,b)=>a[0].localeCompare(b[0]));const max=Math.max(...entries.map(x=>x[1].minutes),1);$('monthly').innerHTML=`<div class="month-bars">${entries.map(([k,m])=>`<div class="month-group"><span class="month-value">${formatMinutes(m.minutes)}</span><div class="month-bar" style="height:${Math.max(4,158*m.minutes/max)}px"></div><span class="month-label">${esc(k)}</span></div>`).join('')}</div><div class="month-grid">${entries.map(([k,m])=>`<div class="month-cell"><strong>${formatMinutes(m.minutes)}</strong><span>${m.days.size} active day${m.days.size===1?'':'s'}</span></div>`).join('')}</div>${entries.length===1?'<div class="note">Only one month of recorded effort so far. Monthly comparisons will appear as you continue studying.</div>':''}`}
-const data=assessments.map(s=>({s,d:date(s),cap:capName(s),score:Number(s.result?.score?.scaled!=null?s.result.score.scaled*100:(s.result?.score?.raw??NaN)),level:getExt(s.context?.extensions,'cefr-target')||'—',assessed:getExt(s.context?.extensions,'cefr-assessed')||'—',source:getExt(s.context?.extensions,'assessment-source')||'Unspecified'})).filter(x=>x.d&&Number.isFinite(x.score)).sort((a,b)=>a.d-b.d);
-const latest={};for(const a of data)latest[a.cap]=a;const capnames=['Grammar','Vocabulary','Listening','Reading','Writing','Speaking'];$('capabilities').innerHTML=capnames.map((c,i)=>{const a=latest[c];const colors=['#705cf0','#9987ff','#0ba998','#3689e7','#f47b42','#dc658e'];return `<div class="cap"><div class="cap-top"><h3>${c}</h3><strong class="cap-number">${a?+a.score.toFixed(1)+'%':'—'}</strong></div>${a?`<div class="track"><div class="fill" style="background:${colors[i]};width:${Math.max(0,Math.min(100,a.score))}%"></div></div><div class="mini">Target ${esc(a.level)} · Assessed ${esc(a.assessed)} · ${esc(dayKey(a.d))} · ${esc(a.source)}</div>`:'<div class="muted small">No assessment recorded</div>'}</div>`}).join('');
-if(!data.some(a=>capnames.includes(a.cap))){$('trend').innerHTML='<div class="empty">No capability assessments found.</div>'}else{
-const eventKeys=[...new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>a.s.context?.registration||dayKey(a.d)+'|'+a.source))];const colors={'Grammar':'#705cf0','Vocabulary':'#9987ff','Listening':'#0ba998','Reading':'#3689e7','Writing':'#f47b42','Speaking':'#dc658e'};
-const pointsByCap={};for(const cap of capnames){pointsByCap[cap]=data.filter(a=>a.cap===cap)}
-const chartW=610,chartH=235,left=35,right=15,top=20,bottom=35;const allDates=[...new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>dayKey(a.d)))].sort();const xFor=d=>allDates.length<=1?(left+chartW-right)/2:left+(allDates.indexOf(dayKey(d))/(allDates.length-1))*(chartW-left-right);const yFor=n=>top+(100-n)/100*(chartH-top-bottom);let svg=`<svg class="trend-svg" viewBox="0 0 ${chartW} ${chartH}" role="img" aria-label="Capability assessment scores by date">`;
-for(const n of [0,25,50,75,100]){const y=yFor(n);svg+=`<line x1="${left}" x2="${chartW-right}" y1="${y}" y2="${y}" stroke="#e9ebf3"/><text x="${left-8}" y="${y+4}" font-size="11" fill="#7a8499" text-anchor="end">${n}</text>`}
-for(const [di,d] of allDates.entries()){if(allDates.length>7&&di%Math.ceil(allDates.length/7)!==0&&di!==allDates.length-1)continue;svg+=`<text x="${allDates.length===1?xFor(data[0].d):xFor(new Date(d+'T12:00:00'))}" y="${chartH-7}" font-size="11" fill="#7a8499" text-anchor="middle">${esc(d.slice(5))}</text>`}
-for(const cap of capnames){const arr=pointsByCap[cap];if(!arr.length)continue;const color=colors[cap];const coords=arr.map(a=>[xFor(a.d),yFor(a.score)]);if(coords.length>1)svg+=`<polyline points="${coords.map(([x,y])=>`${x},${y}`).join(' ')}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;for(let i=0;i<coords.length;i++){const [x,y]=coords[i];svg+=`<circle cx="${x}" cy="${y}" r="5" fill="${color}" stroke="white" stroke-width="2"><title>${esc(cap)}: ${arr[i].score.toFixed(1)}% · ${esc(arr[i].level)} · ${esc(dayKey(arr[i].d))}</title></circle>`}}
-svg+='</svg>';const legend=capnames.filter(c=>pointsByCap[c].length).map(c=>`<span><i class="legend-dot" style="background:${colors[c]}"></i>${esc(c)}</span>`).join('');const caution=allDates.length<2?'Only one assessment date so far. These scores establish your baseline; improvement will become visible after another assessment.':'Trends show test accuracy, not percentage of CEFR mastery. Compare scores from the same test source and target level where possible.';
-const rows=data.filter(a=>capnames.includes(a.cap)).map(a=>`<tr><td>${esc(dayKey(a.d))}</td><td>${esc(a.cap)}</td><td>${esc(a.level)}</td><td>${esc(a.assessed)}</td><td>${esc(a.score.toFixed(1))}%</td><td>${esc(a.source)}</td></tr>`).join('');
-$('trend').innerHTML=`<div class="trend-wrap">${svg}<div class="trend-legend">${legend}</div><div class="note">${caution}</div><details class="table-details"><summary>View assessment details</summary><div class="scroll"><table class="assess-table"><thead><tr><th>Date</th><th>Capability</th><th>Target CEFR</th><th>Assessed CEFR</th><th>Score</th><th>Source</th></tr></thead><tbody>${rows}</tbody></table></div></details></div>`}
-const uniqueDates=new Set(data.filter(a=>capnames.includes(a.cap)).map(a=>dayKey(a.d)));if(!sessions.length||uniqueDates.size<2){$('relationships').innerHTML='<div class="empty">Not enough evidence yet. We need repeated study sessions followed by assessments on different dates before comparing learning formats with performance.</div>'}else{$('relationships').innerHTML=`<div class="empty">${sessions.length} study session(s) across ${Object.keys(formats).length} primary format(s) and ${uniqueDates.size} assessment dates. We need repeated comparable assessments and sufficient study history before showing association scores.</div>`}
+window.lastSpanishStatements=stmts;
+assessmentVisuals(stmts);
+const assessmentDays=new Set(stmts.filter(s=>verb(s)==='assessed'&&capName(s)).map(s=>date(s)).filter(Boolean).map(dayKey));
+if(!sessions.length||assessmentDays.size<2){$('relationships').innerHTML='<div class="empty">Not enough evidence yet. We need repeated study sessions followed by assessments on different dates before comparing learning formats with performance.</div>'}else{$('relationships').innerHTML=`<div class="empty">${sessions.length} study session(s) across ${Object.keys(formats).length} primary format(s) and ${assessmentDays.size} assessment dates. We need repeated comparable assessments and sufficient study history before showing association scores.</div>`}
 $('badge').textContent=`${stmts.length} statements loaded`;}
 async function loadPublicData(){
  try{
@@ -165,9 +297,6 @@ function renderAnki(stmts){
   if(rows.length){setAnki(rows[0].mature,rows[0].total,kind)}
   else{setAnki(0,0,kind)}
  }
- const count=snapshots.cognates.length+snapshots.phrases.length;
- $('anki-label').textContent=count?'Live LRS':'No snapshots';
- $('anki-note').textContent=count?'Anki figures use the latest valid snapshot per deck from Veracity. Mature means a review interval of at least 21 days, not verified mastery.':'No Anki progress snapshots found for this learner. Use the Anki Progress Recorder, then reload the dashboard.';
 }
 setAnki(0,0,'vocab');setAnki(0,0,'phrase');
 loadPublicData();
